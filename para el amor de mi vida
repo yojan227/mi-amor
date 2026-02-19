@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti 💖</title>
+
+<style>
+body {
+    margin: 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff66b2, #ffb3ec);
+    overflow: hidden;
+    color: white;
+}
+
+#inicio, #pregunta {
+    position: absolute;
+    width: 100%;
+    top: 40%;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 22px;
+    margin: 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#si {
+    background-color: #ff007f;
+    color: white;
+}
+
+#no {
+    background-color: gray;
+    color: white;
+    position: absolute;
+}
+
+.heart {
+    position: fixed;
+    font-size: 30px;
+    animation: subir 4s linear forwards;
+}
+
+@keyframes subir {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-800px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="inicio">
+    <h1>Tengo algo importante que preguntarte... 💌</h1>
+    <button onclick="empezar()">Abrir ❤️</button>
+</div>
+
+<div id="pregunta" style="display:none;">
+    <h1 id="contador"></h1>
+    <h1 id="textoPregunta" style="display:none;">
+        ¿Quieres seguir siendo mi novia? 💖
+    </h1>
+    <br>
+    <button id="si" onclick="respuestaSi()">Sí 💕</button>
+    <button id="no" onmouseover="moverNo()">No 😢</button>
+</div>
+
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let tamaño = 22;
+
+function empezar() {
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("pregunta").style.display = "block";
+
+    let tiempo = 3;
+    let contador = document.getElementById("contador");
+
+    let intervalo = setInterval(() => {
+        contador.innerHTML = tiempo;
+        tiempo--;
+
+        if (tiempo < 0) {
+            clearInterval(intervalo);
+            contador.style.display = "none";
+            document.getElementById("textoPregunta").style.display = "block";
+        }
+    }, 1000);
+}
+
+function respuestaSi() {
+    alert("Sabía que dirías que sí 😍 Te amo infinito 💖");
+
+    for (let i = 0; i < 50; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+
+function moverNo() {
+    let botonNo = document.getElementById("no");
+
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 50);
+
+    botonNo.style.left = x + "px";
+    botonNo.style.top = y + "px";
+
+    tamaño += 5;
+    document.getElementById("si").style.fontSize = tamaño + "px";
+}
+</script>
+
+</body>
+</html>
